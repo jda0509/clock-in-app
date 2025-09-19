@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -32,6 +32,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    //　開発中登録時に自動で認証済みにする場合
+    //protected static function booted()
+    //{
+    //   static::creating(function ($user){
+    //        $user->email_verified_at = now();
+    //      });
+    //}
 
     /**
      * The attributes that should be cast.

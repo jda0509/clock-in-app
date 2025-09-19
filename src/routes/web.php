@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/email/verify', function() {
+    return Redirect::route('login')
+    ->with('status', '登録したメールアドレスを確認してください。');
+})->name('verification.notice');
+
+Route::get('/dashboard', function() {
+    return view('dashboard');
+})->middleware(['auth', 'verified']);
